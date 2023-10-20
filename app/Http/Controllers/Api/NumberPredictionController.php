@@ -77,7 +77,7 @@ class NumberPredictionController extends BaseController
             $walletData = Wallet::where('user_id', $request->user_id)->first();
             if($walletData) {
                 if($numberGame->game_number == $numberGame->result_number) {
-                    $totalAmount = $walletData->amount + $numberGame->amount;
+                    $totalAmount = $walletData->amount + (($numberGame->amount * 9) - $numberGame->amount);
                 } else {
                     $totalAmount = $walletData->amount - $numberGame->amount;
                 }
