@@ -53,6 +53,12 @@
                         <p style="margin-left: 10px">Withdraw</p>
                     </a>
                 </li>
+                <li class="nav-item active z">
+                    <a href="{{route('contact-list') }}"  class="nav-link {{ in_array( $controller, ['ContactUsController']) ? 'active' : '' }}">
+                        <i class="fas fa-call"></i>
+                        <p style="margin-left: 10px">Contact Us</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

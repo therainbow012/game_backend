@@ -52,6 +52,8 @@ return [
 
     'ACCOUNT_DETAIL_UPDATE' => 'Account Detail Updated Successfully.',
 
-    'NO_BALANCE' => 'Balance is law. Please make payment first'
+    'NO_BALANCE' => 'Balance is law. Please make payment first',
+
+    'CONTACT_CREATED' => 'Contact Created'
 
 ];

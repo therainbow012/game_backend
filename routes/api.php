@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\WithdrawController;
+use App\Http\Controllers\Api\ContactUsController;
 use App\Http\Controllers\Api\GamePredictionController;
 use App\Http\Controllers\Api\ColorPredictionController;
 use App\Http\Controllers\Api\NumberPredictionController;
@@ -68,6 +69,12 @@ Route::group(['middleware' => ['throttle:api']], function ($router) {
         Route::prefix('withdraw')->group(function () {
             Route::post('add', [WithdrawController::class, 'add']);
             Route::get('history', [WithdrawController::class, 'history']);
+        });
+
+        Route::prefix('contact')->group(function () {
+            Route::post('add', [ContactUsController::class, 'create']);
+            Route::get('detail/{id}', [ContactUsController::class, 'detail']);
+            Route::get('list', [ContactUsController::class, 'list']);
         });
 
         Route::post('logout', [UserController::class, 'logout']);

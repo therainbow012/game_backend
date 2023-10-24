@@ -23,7 +23,7 @@ class UserController extends BaseController
             'first_name' => 'required',
             'last_name' => 'required',
             'username' => 'required|unique:users',
-            'email' => 'required|email|unique:users',
+            'email' => 'nullable|email',
             'password' => 'required',
             'mobile_number' => 'required',
         ]);
@@ -124,7 +124,7 @@ class UserController extends BaseController
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'username' => 'required|unique:users,username,'.$request->id,
-                'email' => 'required|email|unique:users,email,'.$request->id,
+                'email' => 'nullable|email',
                 'mobile_number' => 'required',
                 'reference_code' => 'nullable'
             ]);

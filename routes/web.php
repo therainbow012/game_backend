@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\WithdrawController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ColorPredictionController;
 use App\Http\Controllers\NumberPredictionController;
@@ -65,6 +66,10 @@ Route::middleware(['middleware' => 'auth', 'cors'])->group(function () {
     Route::get('withdraw-details/{id}', [WithdrawController::class, 'withdrawDetail'])->name('withdraw-details');
 
     Route::post('update-withdraw', [WithdrawController::class, 'updateWithdraw'])->name('update-withdraw');
+
+    Route::get('contact-list', [ContactUsController::class, 'index'])->name('contact-list');
+
+    Route::get('contact-details/{id}', [ContactUsController::class, 'withdrawDetail'])->name('contact-details');
 });
 
 require __DIR__.'/auth.php';
