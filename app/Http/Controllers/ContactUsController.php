@@ -18,4 +18,15 @@ class ContactUsController extends Controller
             'uri' => \Request::route()->uri
        ]);
     }
+
+    public function detail($id) {
+        $contactData = Contact::find($id);
+
+        return view('contact.contact_detail',
+        [
+            'contactData' => $contactData,
+            'user' => $contactData->user,
+            'uri' => \Request::route()->uri
+       ]);
+    }
 }

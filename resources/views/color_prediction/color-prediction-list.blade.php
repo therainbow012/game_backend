@@ -91,18 +91,9 @@
                                                     </a>
                                                 </td>
                                             </tr>
-
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="float-start" style="margin-left:2%; margin-top:1%; margin-bottom:1%">
-                                Showing <b>{{ $colorData->firstItem() }}</b> to <b>{{ $colorData->lastItem() }}</b> of
-                                <b>{{ $colorData->total() }}</b>
-                                records
-                            </div>
-                            <div class="float-end" style="margin-right:2%; margin-top:1%; margin-top:1%">
-                                {{ $colorData->links('pagination::bootstrap-4') }}
-                            </div>
                         </div>
                     </div>
                 </div>

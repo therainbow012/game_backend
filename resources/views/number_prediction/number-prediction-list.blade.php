@@ -95,14 +95,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="float-start" style="margin-left:2%; margin-top:1%; margin-bottom:1%">
-                                Showing <b>{{ $numberData->firstItem() }}</b> to <b>{{ $numberData->lastItem() }}</b> of
-                                <b>{{ $numberData->total() }}</b>
-                                records
-                            </div>
-                            <div class="float-end" style="margin-right:2%; margin-top:1%; margin-top:1%">
-                                {{ $numberData->links('pagination::bootstrap-4') }}
-                            </div>
                         </div>
                     </div>
                 </div>

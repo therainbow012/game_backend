@@ -32,6 +32,10 @@ class WithdrawController extends BaseController
                     'user_id' => $request->user_id,
                     'amount' => $request->amount,
                     'user_payment_id' => $request->user_payment_id,
+                    'account_number' => $request->account_number,
+                    'bank_mobile_number' => $request->bank_mobile_number,
+                    'bank_name' => $request->bank_name,
+                    'ifsc_code' => $request->ifsc_code,
                     'status' => '1',
                 ]);
                 return $this->sendResponse($paymentHistory, 'Withdraw Request Created');

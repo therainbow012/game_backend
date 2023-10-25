@@ -10,7 +10,7 @@ use App\Http\Controllers\Api\BaseController as BaseController;
 class GamePredictionController extends BaseController
 {
     public function getGame(Request $request) {
-        $gameData = GamePrediction::where('game_type', $request->type)->orderBy('id', 'DESC')->where('status', '0')->first();
+        $gameData = GamePrediction::where('game_type', $request->type)->orderBy('id', 'DESC')->first();
 
         if($gameData) {
             $gameData->update(['status' => '1']);

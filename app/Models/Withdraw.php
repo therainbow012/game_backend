@@ -25,6 +25,10 @@ class Withdraw extends Model
         'user_id',
         'amount',
         'user_payment_id',
+        'account_number',
+        'bank_mobile_number',
+        'bank_name',
+        'ifsc_code',
         'status'
     ];
 

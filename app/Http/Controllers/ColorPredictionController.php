@@ -17,7 +17,7 @@ class ColorPredictionController extends Controller
             });
         }
 
-        $colorData = $colorData->where('game_type', '1')->orderBy('id', 'DESC')->sortable()->paginate(env('ITEMS_PER_PAGE'));
+        $colorData = $colorData->where('game_type', '1')->orderBy('id', 'DESC')->sortable()->limit(10)->get();
         return view('color_prediction.color-prediction-list',
         [
             'colorData' => $colorData,

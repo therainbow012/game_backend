@@ -17,7 +17,7 @@ class NumberPredictionController extends Controller
             });
         }
 
-        $numberData = $numberData->where('game_type', '2')->orderBy('id', 'DESC')->sortable()->paginate(env('ITEMS_PER_PAGE'));
+        $numberData = $numberData->where('game_type', '2')->orderBy('id', 'DESC')->sortable()->limit(10)->get();
         return view('number_prediction.number-prediction-list',
         [
             'numberData' => $numberData,

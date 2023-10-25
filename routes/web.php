@@ -69,7 +69,7 @@ Route::middleware(['middleware' => 'auth', 'cors'])->group(function () {
 
     Route::get('contact-list', [ContactUsController::class, 'index'])->name('contact-list');
 
-    Route::get('contact-details/{id}', [ContactUsController::class, 'withdrawDetail'])->name('contact-details');
+    Route::get('contact-detail/{id}', [ContactUsController::class, 'detail'])->name('contact-details');
 });
 
 require __DIR__.'/auth.php';

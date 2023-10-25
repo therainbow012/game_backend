@@ -47,7 +47,6 @@ class PaymentController extends Controller
     public function updatePayment(Request $request) {
 
         $paymentData = paymentHistory::find($request->id);
-
         if($paymentData && $paymentData->status == 1) {
 
             $paymentData->update(['status' => $request->status]);
@@ -72,7 +71,7 @@ class PaymentController extends Controller
 
                     Wallet::create([
                         'user_id' => $paymentData->user_id,
-                        'amount' => $paymentData->amount,
+                        'amount' => 0,
                         'payment_mode' => $paymentData->payment_mode,
                         'user_payment_id' => $paymentData->user_payment_id,
                     ]);
