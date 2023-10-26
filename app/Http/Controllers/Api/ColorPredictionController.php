@@ -63,7 +63,7 @@ class ColorPredictionController extends BaseController
 
         $gameColor = GamePrediction::find($request->game_id);
         if($gameColor->status != 2) {
-            $gameColor->update(['status' => '2']);
+            // $gameColor->update(['status' => '2']);
             if($gameColor && empty($gameColor->result_color)) {
                 $randomColor = $gameColor->randomColor();
                 $gameColor->update(['result_color' => $randomColor]);

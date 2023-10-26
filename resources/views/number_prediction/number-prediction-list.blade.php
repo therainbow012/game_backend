@@ -53,7 +53,7 @@
                                             @sortablelink('status', 'Status')
                                         </th>
                                         <th style="width: 5%">
-                                           Result Color
+                                           Result Number
                                         </th>
                                         <th style="width: 5%">
                                             Total User
@@ -74,11 +74,16 @@
                                             <tr>
                                                 <td> Number Prediction </td>
                                                 <td>
-                                                    @if($data->status == 0)
+                                                    <!-- @if($data->status == 0)
                                                         Not Started
                                                     @elseif ($data->status == 1)
                                                         Running
                                                     @elseif($data->status == 2)
+                                                        End
+                                                    @endif -->
+                                                    @if($loop->index === 0)
+                                                        Running
+                                                    @else
                                                         End
                                                     @endif
                                                 </td>

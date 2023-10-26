@@ -63,7 +63,7 @@ class NumberPredictionController extends BaseController
         $gameNumber = GamePrediction::find($request->game_id);
 
         if($gameNumber->status != 2) {
-            $gameNumber->update(['status' => '2']);
+            // $gameNumber->update(['status' => '2']);
             if($gameNumber && empty($gameNumber->result_color)) {
                 $randomNumbeer = $gameNumber->randomNumber();
                 $gameNumber->update(['result_color' => $randomNumbeer]);
