@@ -54,6 +54,7 @@ Route::group(['middleware' => ['throttle:api']], function ($router) {
 
         Route::prefix('game')->group(function () {
             Route::get('last_created', [GamePredictionController::class, 'getGame']);
+            Route::get('history', [GamePredictionController::class, 'getHistory']);
         });
 
         Route::prefix('wallet')->group(function () {
