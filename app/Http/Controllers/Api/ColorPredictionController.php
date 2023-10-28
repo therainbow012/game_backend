@@ -77,7 +77,7 @@ class ColorPredictionController extends BaseController
             $walletData = Wallet::where('user_id', $request->user_id)->first();
             if($walletData) {
                 if($colorGame->game_color == $colorGame->result_color) {
-                    $totalAmount = $walletData->amount + $colorGame->amount;
+                    $totalAmount = $walletData->amount + (($colorGame->amount * 3) - $colorGame->amount);;
                 } else {
                     $totalAmount = $walletData->amount - $colorGame->amount;
                 }
