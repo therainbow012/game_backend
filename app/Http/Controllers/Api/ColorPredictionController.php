@@ -69,8 +69,9 @@ class ColorPredictionController extends BaseController
                 $gameColor->update(['result_color' => $randomColor]);
 
                 ColorPrediction::where('game_id', $request->game_id)->update(['result_color' =>  $randomColor]);
+            } else {
+                ColorPrediction::where('game_id', $request->game_id)->update(['result_color' =>  $gameColor->result_color]);
             }
-
 
             $colorGame = ColorPrediction::where('game_id', $request->game_id)->where('user_id', $request->user_id)->orderBy('id', 'DESC')->first();
 

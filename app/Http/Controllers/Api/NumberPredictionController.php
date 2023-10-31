@@ -69,8 +69,9 @@ class NumberPredictionController extends BaseController
                 $gameNumber->update(['result_color' => $randomNumbeer]);
 
                 NumberPrediction::where('game_id', $request->game_id)->update(['result_number' =>  $randomNumbeer]);
+            } else {
+                NumberPrediction::where('game_id', $request->game_id)->whereNull('result_number')->update(['result_number' =>  $gameNumber->result_color]);
             }
-
 
             $numberGame = NumberPrediction::where('game_id', $request->game_id)->where('user_id', $request->user_id)->orderBy('id', 'DESC')->first();
 

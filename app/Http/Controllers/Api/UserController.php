@@ -264,7 +264,8 @@ class UserController extends BaseController
 
             // Encode the image contents as a Base64 string
             $base64Image = base64_encode($imageContents);
-            $accountDetails->image = "data:image/jpeg;base64". $base64Image;
+            $accountDetails->image = "data:image/jpeg;base64,". $base64Image;
+
             return $this->sendResponse($accountDetails, Lang::get('messages.RECORD_FOUND'));
         }
         return $this->sendResponse((Object)[], Lang::get('messages.NO_RECORD_FOUND'));
