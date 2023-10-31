@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Mail;
+use App\Mail\OTPMail;
+use Mail;
 use App\Http\Controllers\Api\BaseController as BaseController;
 
 class UserController extends BaseController
@@ -215,9 +218,20 @@ class UserController extends BaseController
     public function forgotPassword(Request $request) {
         try {
             $userName = $request->username;
-            $userData = User::where('username', $userName)->first();
-            if($userData) {
+            $userData = User::where('username', $userName)->where('email', $request->email)->first();
+
+            if($userData->id) {
+                $otp = time();
+                // dd($otp);
+                $updateUserData = User::where('id', $userData->id)->update([
+                    'otp'  => $otp,
+                    'updated_at' =>now(),
+                ]);
+
+                Mail::to($userData->email)->send(new OTPMail($otp));
+
                 return $this->sendResponse($userData, Lang::get('messages.RECORD_FOUND'));
+
             } else {
                 return $this->sendError(Lang::get('messages.SOMETHING_WENT_WRONG_MSG'), []);
             }
@@ -238,11 +252,12 @@ class UserController extends BaseController
                 return $this->sendError($validator->errors()->first());
             }
 
-            $userDetails = User::where('username', $request->username)->first();
+            $userDetails = User::where('username', $request->username)->where('otp',$request->otp)->first();
 
             if ($userDetails) {
                 $success = [];
                 $userDetails->password= Hash::make($request->password);
+                $userDetails->otp = null;
                 $userDetails->save();
                 return $this->sendResponse($success, Lang::get('messages.PASSWORD_CHANGE_SUCCESSFULLY_MSG'));
             }
