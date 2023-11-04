@@ -65,10 +65,58 @@ class NumberPredictionController extends BaseController
         if($gameNumber->status != 2) {
             // $gameNumber->update(['status' => '2']);
             if($gameNumber && empty($gameNumber->result_color)) {
-                $randomNumbeer = $gameNumber->randomNumber();
-                $gameNumber->update(['result_color' => $randomNumbeer]);
 
-                NumberPrediction::where('game_id', $request->game_id)->update(['result_number' =>  $randomNumbeer]);
+                $allNumberGame = NumberPrediction::where('game_id', $request->game_id)->get()->toArray();
+                $count = count($allNumberGame);
+
+                if ($count == 1) {
+                    do {
+                        $randomNumber = rand(1, 10);
+                    } while ($randomNumber == (int) $allNumberGame[0]['game_number']);
+                    $gameNumber->update(['result_color' => $randomNumber]);
+                    NumberPrediction::where('game_id', $request->game_id)->update(['result_number' =>  $randomNumber]);
+                }
+
+                if ($count == 2) {
+                    do {
+                        $randomNumber = rand(1, 10);
+                    } while ($randomNumber == (int) $allNumberGame[0]['game_number'] || $randomNumber == (int) $allNumberGame[1]['game_number']);
+                    $gameNumber->update(['result_color' => $randomNumber]);
+                    NumberPrediction::where('game_id', $request->game_id)->update(['result_number' =>  $randomNumber]);
+                }
+
+                if ($count > 2) {
+                    $userNumbers = [];
+                    foreach ($allNumberGame as $gameData) {
+                        $userNumbers[] = [
+                            'number' => (int) $gameData['game_number'],
+                            'amount' => (int) $gameData['amount'],
+                        ];
+                    }
+
+                    $outputArray = [];
+
+                    foreach ($userNumbers as $item) {
+                        $number = $item['number'];
+                        $amount = $item['amount'];
+
+                        if (isset($outputArray[$number])) {
+                            // If the number already exists in the output array, add the amount to it
+                            $outputArray[$number]['amount'] += $amount;
+                        } else {
+                            // If the number doesn't exist in the output array, create a new entry
+                            $outputArray[$number] = ['number' => $number, 'amount' => $amount];
+                        }
+                    }
+
+                    usort($outputArray, function ($a, $b) {
+                        return $a['amount'] - $b['amount'];
+                    });
+
+                    $lowestAmountNumber = $outputArray[0]['number'];
+                    $gameNumber->update(['result_color' => $lowestAmountNumber]);
+                    NumberPrediction::where('game_id', $request->game_id)->update(['result_number' =>  $lowestAmountNumber]);
+                }
             } else {
                 NumberPrediction::where('game_id', $request->game_id)->whereNull('result_number')->update(['result_number' =>  $gameNumber->result_color]);
             }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\GamePrediction;
 use App\Models\NumberPrediction;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class NumberPredictionController extends Controller
 {
@@ -18,10 +19,21 @@ class NumberPredictionController extends Controller
         }
 
         $numberData = $numberData->where('game_type', '2')->orderBy('id', 'DESC')->sortable()->limit(10)->get();
+
+        $gameData = GamePrediction::orderBy('id','desc')->where('game_type', 2)->first();
+
+        $numberWithTotalAmount = NumberPrediction::selectRaw("result_number, game_number, IFNULL(SUM(amount), 0.00) as total_amount")
+                    ->where('game_id', $gameData->id)
+                    ->groupBy('game_number')
+                    ->groupBy('result_number')
+                    ->get();
+
         return view('number_prediction.number-prediction-list',
         [
             'numberData' => $numberData,
             'searchData' => $request->search,
+            'numberWithTotalAmount' => $numberWithTotalAmount,
+            'runningGameId' => $gameData->id,
             'uri' => \Request::route()->uri
        ]);
     }
