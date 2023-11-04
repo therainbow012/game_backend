@@ -99,6 +99,55 @@
                 <div class="col-md-12">
                     <div class="card card-info card-outline">
                         <div class="card-header">
+                            <h3 class="card-title"><b>Game Amount</b> </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-pane">
+                                <table class="table table-sm text-center">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%">Number</th>
+                                            <th style="width: 5%">1</th>
+                                            <th style="width: 5%">2</th>
+                                            <th style="width: 5%">3</th>
+                                            <th style="width: 5%">4</th>
+                                            <th style="width: 5%">5</th>
+                                            <th style="width: 5%">6</th>
+                                            <th style="width: 5%">7</th>
+                                            <th style="width: 5%">8</th>
+                                            <th style="width: 5%">9</th>
+                                            <th style="width: 5%">10</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><b>Money</b></td>
+                                            @php
+                                                $total = 0.00;
+                                            @endphp
+                                            @foreach(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'] as $number)
+                                                <td>
+                                                    @php
+                                                        $numberData = $numberWithTotalAmount->where('game_number', $number)->first();
+                                                        $total += $numberData ? $numberData->total_amount : '0.00';
+                                                    @endphp
+                                                    {{ $numberData ? $numberData->total_amount : '0.00'  }}
+                                                </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><b>Total Amount</b></td>
+                                            <td colspan="10">{{$total ?? 0.00}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
                             <h3 class="card-title"><b>User Details </b> </h3>
                         </div>
                         <div class="card-body">

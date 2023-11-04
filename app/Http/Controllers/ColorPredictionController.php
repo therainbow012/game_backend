@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\GamePrediction;
 use App\Models\ColorPrediction;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class ColorPredictionController extends Controller
 {
@@ -31,12 +32,24 @@ class ColorPredictionController extends Controller
         if($gameData) {
 
             $users = ColorPrediction::where('game_id', $gameData->id)->sortable()->paginate(env('ITEMS_PER_PAGE'));
+            $colorsWithTotalAmount = ColorPrediction::selectRaw("CASE
+                    WHEN game_color = 'red' THEN 1
+                    WHEN game_color = 'violet' THEN 2
+                    WHEN game_color = 'green' THEN 3
+                    WHEN game_color = 'orange' THEN 4
+                    ELSE 5
+                END AS color_order, game_color, IFNULL(SUM(amount), 0.00) as total_amount")
+                    ->where('game_id', $gameData->id)
+                    ->groupBy('game_color')
+                    ->orderBy('color_order')
+                    ->paginate(env('ITEMS_PER_PAGE'));
 
             return view('color_prediction.color-prediction-detail',
             [
                 'colorData' => $gameData,
                 'users' => $users,
                 'searchData' => $request->search,
+                'colorsWithTotalAmount' => $colorsWithTotalAmount,
                 'uri' => \Request::route()->uri
            ]);
         }

@@ -37,10 +37,10 @@
     </div>
 
     <!-- jQuery -->
-    <script src="{{ asset('js/jquery/jquery.min.js') }}" defer></script>
+    <!-- <script src="{{ asset('js/jquery/jquery.min.js') }}" defer></script> -->
     </div>
     <!-- /.login-box -->
-    <script src="{{ asset('js/validate.js') }}" ></script>
+    <!-- <script src="{{ asset('js/validate.js') }}" ></script> -->
 </body>
 
 </html>

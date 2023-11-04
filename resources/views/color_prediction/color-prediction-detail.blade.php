@@ -96,6 +96,51 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-12">
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title"><b>Game Amount</b></h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-pane">
+                                <table class="table table-sm text-center">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%">Color</th>
+                                            <th style="width: 5%">Red</th>
+                                            <th style="width: 5%">Violet</th>
+                                            <th style="width: 5%">Green</th>
+                                            <th style="width: 5%">Orange</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><b>Money</b></td>
+                                            @php
+                                                $total = 0.00;
+                                            @endphp
+                                            @foreach(['red', 'violet', 'green', 'orange'] as $color)
+                                                <td>
+                                                    @php
+                                                        $colorData = $colorsWithTotalAmount->where('game_color', $color)->first();
+                                                        $total += $colorData ? $colorData->total_amount : '0.00';
+                                                    @endphp
+                                                    {{ $colorData ? $colorData->total_amount : '0.00' }}
+                                                </td>
+                                            @endforeach
+                                        </tr>
+                                        <tr>
+                                            <td><b>Total Amount</b></td>
+                                            <td colspan="10">{{$total ?? 0.00}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-12">
                     <div class="card card-info card-outline">
                         <div class="card-header">

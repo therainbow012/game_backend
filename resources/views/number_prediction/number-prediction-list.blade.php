@@ -109,6 +109,6 @@
 @endsection
 
 <!-- Validation -->
-@push('child-scripts')
+<!-- @push('child-scripts')
     <script src="{{ asset('js/validate.js') }}"></script>
-@endpush
+@endpush -->

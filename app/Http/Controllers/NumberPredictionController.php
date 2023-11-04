@@ -31,11 +31,17 @@ class NumberPredictionController extends Controller
         if($gameData) {
 
             $users = NumberPrediction::where('game_id', $gameData->id)->sortable()->paginate(env('ITEMS_PER_PAGE'));
+            $numberWithTotalAmount = NumberPrediction::selectRaw("game_number, IFNULL(SUM(amount), 0.00) as total_amount")
+                    ->where('game_id', $gameData->id)
+                    ->groupBy('game_number')
+                    ->paginate(env('ITEMS_PER_PAGE'));
+
             return view('number_prediction.number-prediction-detail',
             [
                 'numberData' => $gameData,
                 'users' => $users,
                 'searchData' => $request->search,
+                'numberWithTotalAmount' => $numberWithTotalAmount,
                 'uri' => \Request::route()->uri
            ]);
         }
