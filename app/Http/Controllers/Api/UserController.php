@@ -53,6 +53,8 @@ class UserController extends BaseController
             $userDetails['image'] = $newName;
         }
 
+        //Add by_reference_code_rainbow
+        $userDetails['by_reference_code_rainbow'] = $request['by_reference_code_rainbow'] ?? null;
         // Create new user
         $user = User::create($userDetails);
         $success = $user;

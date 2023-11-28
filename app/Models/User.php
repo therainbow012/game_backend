@@ -32,6 +32,7 @@ class User extends Authenticatable
         'otp',
         'image',
         'reference_code',
+        'by_reference_code_rainbow',
         'status'
     ];
 

@@ -35,4 +35,6 @@ class Wallet extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    public $timestamps = false;
 }

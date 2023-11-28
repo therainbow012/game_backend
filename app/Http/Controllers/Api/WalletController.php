@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Lang;
 use App\Models\Wallet;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\paymentHistory;
 use Illuminate\Support\Facades\Auth;
@@ -20,9 +21,33 @@ class WalletController extends BaseController
             'payment_mode' => 'required',
             'user_payment_id' => 'required'
         ]);
-
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first());
+        }
+
+        $user = auth()->user();
+        $userWallet = Wallet::where('user_id', $user->id)->first();
+        if (!isset($userWallet) && $user->by_reference_code_rainbow) {
+            $referenceUserData = User::where('reference_code', $user->by_reference_code_rainbow)->first();
+
+            if ($referenceUserData) {
+                $referenceUserId = $referenceUserData->id;
+                $wallet = Wallet::where('user_id', $referenceUserData->id)->first();
+
+                if ($wallet) {
+                    $wallet->amount += 50;
+                    $wallet->save();
+                } else {
+                    Wallet::create([
+                        "user_id" => $referenceUserId,
+                        "amount" => 50,
+                        "payment_mode" => 'Refer Bonus'
+                    ]);
+                }
+                User::where('id', $user->id)->update([
+                    'by_reference_code_rainbow' => null,
+                ]);
+            }
         }
         $paymentHistory = paymentHistory::create([
             'user_id' => $request->user_id,
