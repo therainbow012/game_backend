@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('by_reference_code_rainbow')->after('by_reference_code')->nullable();
+            $table->string('by_reference_code_rainbow')->after('email')->nullable();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('by_reference_code_rainbow')->after('by_reference_code')->nullable();
+            $table->string('by_reference_code_rainbow')->after('email')->nullable();
         });
     }
 };
